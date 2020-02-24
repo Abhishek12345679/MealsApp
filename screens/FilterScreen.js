@@ -10,7 +10,10 @@ const FilterScreen = () => {
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding:10
     }
 });
 
