@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text} from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import { CATEGORIES } from "../data/dummy-data";
