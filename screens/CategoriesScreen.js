@@ -1,18 +1,24 @@
 import React from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text} from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import { CATEGORIES } from "../data/dummy-data";
+import Colors from "../constants/Colors";
 
-const MealDetailsScreen = props => {
+const CategoriesScreen = props => {
 
     const renderDataItem = (itemData) => {
         return (
             <TouchableOpacity style={styles.listItem} onPress={() => {
-                props.navigation.navigate({routeName:'Meals'})
+                props.navigation.navigate({
+                    routeName: 'Meals',
+                    params: {
+                        categoryId: itemData.item.id
+                    }
+                })
             }}>
                 <View>
-                    <Text>{itemData.item.title}</Text>
+                    <Text style={styles.itemText}>{itemData.item.title}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -27,20 +33,23 @@ const MealDetailsScreen = props => {
     );
 };
 
+
 const styles = StyleSheet.create({
     categoryGrid: {
-        padding:10,
+        padding: 10,
         justifyContent: 'center',
-        alignItems: "center",
-        flex:1,
-        marginTop:50
+        alignItems: "center"
     },
     listItem: {
-        padding: 5,
+        padding: 20,
         margin: 50,
         height: 150,
         width: '100%'
+    },
+    itemText: {
+        color: Colors.accentColor,
+        fontWeight: 'bold'
     }
 });
 
-export default MealDetailsScreen;
+export default CategoriesScreen;

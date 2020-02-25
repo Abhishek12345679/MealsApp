@@ -1,7 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
+
+
 const MealDetailsScreen = (props) => {
+
     return (
         <View style={styles.screen}>
             <Text>Meal Detail Screen</Text>
@@ -11,7 +14,6 @@ const MealDetailsScreen = (props) => {
             }} />
         </View>);
 };
-
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
