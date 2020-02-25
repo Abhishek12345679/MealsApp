@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 import { CATEGORIES } from "../data/dummy-data";
 
@@ -8,9 +8,14 @@ const MealDetailsScreen = props => {
 
     const renderDataItem = (itemData) => {
         return (
-            <View style={styles.listItem}>
-                <Text>{itemData.item.title}</Text>
-            </View>);
+            <TouchableOpacity style={styles.listItem} onPress={() => {
+                props.navigation.navigate({routeName:'Meals'})
+            }}>
+                <View>
+                    <Text>{itemData.item.title}</Text>
+                </View>
+            </TouchableOpacity>
+        );
     }
 
     return (
@@ -23,15 +28,18 @@ const MealDetailsScreen = props => {
 };
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 10
-    },
     categoryGrid: {
-        padding: 10,
-        marginHorizontal: 20
+        padding:10,
+        justifyContent: 'center',
+        alignItems: "center",
+        flex:1,
+        marginTop:50
+    },
+    listItem: {
+        padding: 5,
+        margin: 50,
+        height: 150,
+        width: '100%'
     }
 });
 
