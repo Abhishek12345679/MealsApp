@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         margin: 12,
         height: 150,
         borderRadius: 15,
-        overflow: 'hidden'
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible'
     },
     itemText: {
         fontWeight: 'bold',

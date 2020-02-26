@@ -5,44 +5,72 @@ import { StyleSheet, View, Text, TouchableOpacity, TouchableNativeFeedback, Plat
 
 const MealItem = (props) => {
 
-    let Touchablecmp = TouchableOpacity
-
-    if (Platform.OS === 'android' && Platform.Version >= 21) {
-        Touchablecmp = TouchableOpacity
-    }
-
     return (
-        <Touchablecmp
-            onPress={props.onSelectItem}
-            style={styles.mealItem}>
-            <View style={StyleSheet.mainImageContainer}>
-                <ImageBackground
-                    source={{ uri: props.image }}
-                    style={styles.imageBg}>
-
-                    <Text>{props.title}</Text>
-                </ImageBackground>
-            </View>
-            <View style={styles.mealOverview}></View>
-        </Touchablecmp>
+        <View style={styles.mealItem}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={props.onSelectItem}>
+                <View style={{ ...styles.mealOverview, ...styles.mealHeader }}>
+                    <ImageBackground
+                        source={{ uri: props.image }}
+                        style={styles.imageBg}>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.bigtext}>{props.title}</Text>
+                        </View>
+                    </ImageBackground>
+                </View>
+                <View style={{ ...styles.mealOverview, ...styles.mealFooter }}>
+                    <Text style={styles.text}>{props.duration} Min</Text>
+                    <Text style={styles.text}>{props.complexity.toUpperCase()}</Text>
+                    <Text style={styles.text}>{props.affordability.toUpperCase()}</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    mainImageContainer: {
-        
-    },
     mealOverview: {
         flexDirection: 'row'
     },
     imageBg: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        borderRadius: 15,
+        overflow: 'hidden',
+        justifyContent: 'flex-end',
     },
     mealItem: {
         width: '100%',
         height: 200,
-        flex: 1
+        backgroundColor: "#000",
+        borderRadius: 15,
+        marginVertical: 10
+    },
+    mealHeader: {
+        height: '85%'
+    },
+    mealFooter: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 8,
+        paddingHorizontal: 20
+    },
+    text: {
+        fontFamily: 'open-sans-bold',
+        color: "#fff",
+    },
+    bigtext: {
+        fontSize: 20,
+        fontFamily: 'open-sans-bold',
+        color: "#fff",
+        shadowOpacity: 0.8,
+        marginEnd: 10,
+        marginBottom:8
+    },
+    titleContainer: {
+        justifyContent: 'space-between',
+        alignItems: 'flex-end'
     }
 });
 

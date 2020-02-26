@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Platform, Text, Image } from "react-native";
+import { StyleSheet, View, Platform, FlatList } from "react-native";
 
 import { CATEGORIES, MEALS } from "../data/dummy-data";
-import { FlatList } from "react-native-gesture-handler";
 import MealItem from "../components/MealItem";
 
 const MealScreen = props => {
@@ -15,8 +14,18 @@ const MealScreen = props => {
         return (
             <MealItem
                 image={itemData.item.imageUrl}
-                onSelectItem={() => { }}
-                title={itemData.item.title} />
+                onSelectItem={() =>
+                    props.navigation.navigate({
+                        routeName: 'MealDetail',
+                        params: {
+                            mealId: itemData.item.id
+                        }
+                    })
+                }
+                title={itemData.item.title}
+                duration={itemData.item.duration}
+                complexity={itemData.item.complexity}
+                affordability={itemData.item.affordability} />
         )
     }
 
@@ -24,6 +33,7 @@ const MealScreen = props => {
     return (
         <View style={styles.screen}>
             <FlatList
+                style={{ width: "100%" }}
                 data={displayedMeals}
                 renderItem={renderMealItem} />
         </View>

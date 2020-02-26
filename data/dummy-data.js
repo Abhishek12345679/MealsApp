@@ -16,7 +16,7 @@ export const CATEGORIES = [
 
 export const MEALS = [
     new Meal(
-        "m1", ["c1", "c2"],
+        "m1", ["c1"],
         "Spaghetti with Tomato Sauce",
         "affordable",
         "simple",
@@ -45,11 +45,11 @@ export const MEALS = [
 
     new Meal(
         "m2", ["c2"],
-        "Toast Hawaii",
+        "Litti Chokha",
         "affordable",
         "simple",
-        "https://cdn.pixabay.com/photo/2018/07/11/21/51/toast-3532016_1280.jpg",
-        10, [
+        "https://thumbs.dreamstime.com/b/litti-bihar-eastern-uttar-pradesh-also-know-as-bati-elsewhere-india-litti-can-be-enjoyed-chokha-type-158606549.jpg",
+        60, [
             "1 Slice White Bread",
             "1 Slice Ham",
             "1 Slice Pineapple",
@@ -123,7 +123,7 @@ export const MEALS = [
     ),
 
     new Meal(
-        "m5", ["c2", "c5", "c10"],
+        "m5", ["c5", "c10"],
         "Salad with Smoked Salmon",
         "luxurious",
         "simple",
@@ -279,7 +279,7 @@ export const MEALS = [
         false
     ),
     new Meal(
-        "m10", ["c2", "c5", "c10"],
+        "m10", ["c5", "c10"],
         "Asparagus Salad with Cherry Tomatoes",
         "luxurious",
         "simple",
