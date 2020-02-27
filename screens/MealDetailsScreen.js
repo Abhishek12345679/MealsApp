@@ -5,6 +5,11 @@ import { CATEGORIES, MEALS } from '../data/dummy-data'
 import { ScrollView } from "react-native-gesture-handler";
 import Colors from "../constants/Colors";
 
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import HeaderButton from '../components/HeaderButton'
+
+import UUIDGenerator from 'react-native-uuid-generator';
+
 const MealDetailsScreen = props => {
 
     const mealId = props.navigation.getParam('mealId')
@@ -31,7 +36,6 @@ const MealDetailsScreen = props => {
                 <View style={styles.List}>
                     {selectedMeal.ingredients.map(ingredients =>
                         <View
-                            key={ingredients}
                             style={styles.ListItem}>
                             <Text style={{ color: '#fff' }}>{ingredients}</Text>
                         </View>
@@ -63,7 +67,14 @@ MealDetailsScreen.navigationOptions = (navigationData) => {
     const selectedMeal = MEALS.find(meal => mealId === meal.id)
 
     return {
-        headerTitle: selectedMeal.title
+        headerTitle: selectedMeal.title,
+        headerRight: () =>
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    iconName="ios-star"
+                    title='fav'
+                    onPress={() => { }} />
+            </HeaderButtons>
     }
 }
 

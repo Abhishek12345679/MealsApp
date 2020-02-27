@@ -3,8 +3,8 @@ import { StyleSheet, View, Text } from "react-native";
 
 const FilterScreen = () => {
     return (
-        <View>
-            <Text></Text>
+        <View style={styles.screen}>
+            <Text>Filters</Text>
         </View>);
 };
 
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding:10
+        padding: 10
     }
 });
 

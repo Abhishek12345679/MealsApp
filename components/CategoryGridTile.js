@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         margin: 12,
         height: 150,
         borderRadius: 15,
-        overflow: Platform.OS === 'android' ? 'hidden' : 'visible'
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+        elevation: 50,
     },
     itemText: {
         fontWeight: 'bold',
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
             width: 2,
             height: 5
         },
-        elevation: 5,
         alignItems: 'flex-end',
         justifyContent: 'flex-end'
     }
