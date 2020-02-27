@@ -1,12 +1,12 @@
 import React from 'react'
-import {
-    Ionicons,
-    Foundation
-} from '@expo/vector-icons'
+import { Ionicons, Foundation } from '@expo/vector-icons'
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { HeaderButton } from '../components/HeaderButton'
 
 import CategoriesScreen from "../screens/CategoriesScreen";
 import MealScreen from "../screens/MealScreen";
@@ -18,17 +18,27 @@ import Colors from "../constants/Colors";
 
 import { Platform } from "react-native";
 
+//default navigationOptions
 const defaultStackNavOptions = {
-
     defaultNavigationOptions: {
         headerStyle: {
             backgroundColor: Platform.OS === "ios" ? "" : Colors.primaryColor
         },
         headerTintColor: Platform.OS === "android" ? "#fff" : Colors.primaryColor,
-        headerBackTitle: 'Back'
+        headerBackTitle: 'Back',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: Platform.OS === "ios" ? "" : Colors.primaryColor
+            },
+            headerTintColor: Platform.OS === "android" ? "#fff" : Colors.primaryColor,
+            headerBackTitle: 'Back',
+
+        }
     }
+
 };
 
+// cat-->meals-->detail stack
 const MealsNavigator = createStackNavigator(
     {
         CategoriesScreen: {
@@ -46,6 +56,7 @@ const MealsNavigator = createStackNavigator(
 
 );
 
+// favMeal --> detail stack
 const FavouritesNavigator = createStackNavigator(
     {
         Favourites: FavouritesScreen,
@@ -54,6 +65,15 @@ const FavouritesNavigator = createStackNavigator(
     defaultStackNavOptions
 );
 
+// stacknavig used just to give the filtersScreen the header
+const FiltersNavigator = createStackNavigator(
+    {
+        Filters: FilterScreen
+    },
+    defaultStackNavOptions
+);
+
+// default bottomnavtab configuration
 const tabBarConfig = {
     meals: {
         screen: MealsNavigator,
@@ -84,24 +104,25 @@ const tabBarConfig = {
             },
             tabBarColor: Colors.accentColor
         }
-    },
-    filter: {
-        screen: FilterScreen,
-        navigationOptions: {
-            tabBarLabel: 'Filters',
-            tabBarIcon: (tabBarInfo) => {
-                return (
-                    <Foundation
-                        name="filter"
-                        size={25}
-                        color={tabBarInfo.tintColor} />
-                )
-            },
-            tabBarColor: '#000'
-        }
+        // },
+        // filter: {
+        //     screen: FiltersNavigator,
+        //     navigationOptions: {
+        //         tabBarLabel: 'Filters',
+        //         tabBarIcon: (tabBarInfo) => {
+        //             return (
+        //                 <Foundation
+        //                     name="filter"
+        //                     size={25}
+        //                     color={tabBarInfo.tintColor} />
+        //             )
+        //         },
+        //         tabBarColor: '#000'
+        //     }
     }
 };
 
+// Platform-specific bottomNav
 const BottomTabNavigator =
     Platform.OS === 'android' ?
         createMaterialBottomTabNavigator(
@@ -117,4 +138,11 @@ const BottomTabNavigator =
             }
         })
 
-export default createAppContainer(BottomTabNavigator);
+//side-drawer stack
+
+const MainNavigator = createDrawerNavigator({
+    MealsFavsFilters: BottomTabNavigator,
+    Filters: FiltersNavigator,
+})
+
+export default createAppContainer(MainNavigator);
