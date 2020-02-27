@@ -24,7 +24,8 @@ const defaultStackNavOptions = {
         headerStyle: {
             backgroundColor: Platform.OS === "ios" ? "" : Colors.primaryColor
         },
-        headerTintColor: Platform.OS === "android" ? "#fff" : Colors.primaryColor
+        headerTintColor: Platform.OS === "android" ? "#fff" : Colors.primaryColor,
+        headerBackTitle: 'Back'
     }
 };
 
