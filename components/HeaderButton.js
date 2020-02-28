@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderButton } from "react-navigation-header-buttons";
 
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Platform } from "react-native";
+import { Platform } from "react-native";
 import Colors from "../constants/Colors";
 
 const CustomHeaderButton = props => {
@@ -16,6 +16,5 @@ const CustomHeaderButton = props => {
     );
 };
 
-const styles = StyleSheet.create({});
 
 export default CustomHeaderButton;

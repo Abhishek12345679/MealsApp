@@ -1,12 +1,10 @@
 import React from 'react'
-import { Ionicons, Foundation } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { HeaderButton } from '../components/HeaderButton'
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
 
 import CategoriesScreen from "../screens/CategoriesScreen";
 import MealScreen from "../screens/MealScreen";
@@ -16,26 +14,41 @@ import FilterScreen from '../screens/FilterScreen'
 
 import Colors from "../constants/Colors";
 
-import { Platform } from "react-native";
+import { Platform, View, Text } from "react-native";
+
+
+const DrawerContent = (props) => (
+    <View>
+        <View style={{ height: 20, width: '100%', marginTop: 0, backgroundColor: "#000" }}></View>
+        <View style={{ height: 20, width: '100%', marginTop: 0, backgroundColor: Colors.accentColor }}></View>
+        <View
+            style={{
+                backgroundColor: Colors.primaryColor,
+                height: 80,
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                marginTop: 0
+            }}
+        >
+            <Text style={{ color: 'white', fontSize: 30, marginTop: 20, marginStart: 15 }}>
+                Dineout
+        </Text>
+        </View>
+        <DrawerItems {...props} />
+    </View>
+)
 
 //default navigationOptions
-const defaultStackNavOptions = {
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === "ios" ? "" : Colors.primaryColor
-        },
-        headerTintColor: Platform.OS === "android" ? "#fff" : Colors.primaryColor,
-        headerBackTitle: 'Back',
+const defaultStackNavOptions = (navData) => {
+    return {
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: Platform.OS === "ios" ? "" : Colors.primaryColor
             },
             headerTintColor: Platform.OS === "android" ? "#fff" : Colors.primaryColor,
             headerBackTitle: 'Back',
-
         }
     }
-
 };
 
 // cat-->meals-->detail stack
@@ -141,8 +154,25 @@ const BottomTabNavigator =
 //side-drawer stack
 
 const MainNavigator = createDrawerNavigator({
-    MealsFavsFilters: BottomTabNavigator,
+    MealsFavsFilters:
+    {
+        screen: BottomTabNavigator,
+        navigationOptions: {
+            drawerLabel: 'Meals'
+        },
+
+    },
     Filters: FiltersNavigator,
-})
+
+},
+    {
+        contentOptions: {
+            activeTintColor: Colors.accentColor,
+            labelStyle: {
+                fontFamily: 'open-sans-bold',
+            }
+        },
+        contentComponent: DrawerContent
+    })
 
 export default createAppContainer(MainNavigator);

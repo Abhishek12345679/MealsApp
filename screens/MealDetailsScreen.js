@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import { Icon } from 'react-native-elements'
 
 import { MEALS } from "../data/dummy-data";
 import { ScrollView } from "react-native-gesture-handler";
@@ -7,6 +8,7 @@ import Colors from "../constants/Colors";
 
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
+import { Dimensions } from "react-native";
 
 const MealDetailsScreen = props => {
     const mealId = props.navigation.getParam("mealId");
@@ -29,29 +31,67 @@ const MealDetailsScreen = props => {
                         </View>
                     </ImageBackground>
                 </View>
-                <Text>Ingredients</Text>
+                <Text style={styles.sectionHeader}>Ingredients</Text>
                 <View style={styles.List}>
-                    {selectedMeal.ingredients.map(ingredients => (
-                        <View style={styles.ListItem}>
-                            <Text style={{ color: "#fff" }}>{ingredients}</Text>
+                    {selectedMeal.ingredients.map(ingredient => (
+                        <View style={{ flexDirection: 'column' }} key={ingredient}>
+                            <View style={styles.ListItem}>
+                                <Text style={{ color: "#000" }}>{ingredient}</Text>
+                            </View>
+                            <View style={styles.divider}></View>
                         </View>
                     ))}
+
                 </View>
-                <Text>Steps</Text>
+                <Text style={styles.sectionHeader}>Steps</Text>
                 <View style={styles.List}>
                     {selectedMeal.steps.map(step => (
-                        <View style={styles.ListItem}>
-                            <Text style={{ color: "#fff" }}>{step}</Text>
+                        <View style={{ flexDirection: 'column' }} key={step}>
+                            <View style={styles.ListItem}>
+                                <Text style={{ color: "#000" }}>{step}</Text>
+                            </View>
+                            <View style={styles.divider}></View>
                         </View>
                     ))}
                 </View>
-                <View>
-                    <View></View>
-                    <View></View>
-                </View>
-                <View>
-                    <View></View>
-                    <View></View>
+                <View styles={styles.foodOrientation}>
+                    <Text style={styles.sectionHeader}>Food Habits</Text>
+                    <View style={styles.rowOne}>
+                        <View>
+                            <Icon
+                                raised
+                                name='heartbeat'
+                                type='font-awesome'
+                                color='#f50'
+                                onPress={() => console.log('hello')} />
+                        </View>
+                        <View>
+                            <Icon
+                                reverse
+                                name='heartbeat'
+                                type='font-awesome'
+                                color='#f50'
+                                onPress={() => console.log('hello')} />
+                        </View>
+                    </View>
+                    <View style={styles.rowTwo}>
+                        <View>
+                            <Icon
+                                raised
+                                name='heartbeat'
+                                type='font-awesome'
+                                color='#f50'
+                                onPress={() => console.log('hello')} />
+                        </View>
+                        <View>
+                            <Icon
+                                raised
+                                name='heartbeat'
+                                type='font-awesome'
+                                color='#f50'
+                                onPress={() => console.log('hello')} />
+                        </View>
+                    </View>
                 </View>
             </View>
         </ScrollView>
@@ -74,7 +114,8 @@ MealDetailsScreen.navigationOptions = navigationData => {
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1
+        flex: 1,
+        width: Dimensions.get('window').width
     },
     imageBg: {
         width: "100%",
@@ -98,8 +139,34 @@ const styles = StyleSheet.create({
     },
     ListItem: {
         padding: 15,
-        backgroundColor: Colors.accentColor,
-        margin: 5
+        margin: 0,
+        width: '100%',
+        backgroundColor: '#fff'
+    },
+    foodOrientation: {
+        flexDirection: 'column'
+    },
+    rowOne: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 30
+    },
+    rowTwo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 30
+    },
+    sectionHeader: {
+        marginHorizontal: 30,
+        marginTop: 12,
+        fontFamily: 'open-sans-bold',
+        fontSize: 30
+    },
+    divider: {
+        height: 1,
+        width: '98%',
+        marginHorizontal: 5,
+        backgroundColor: '#ccc'
     }
 });
 
