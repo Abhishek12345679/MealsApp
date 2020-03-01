@@ -1,54 +1,72 @@
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
 
-import React, { useState } from "react";
-import { StyleSheet, View, Text, Switch, Platform, Dimensions } from "react-native";
+import React, { useState, useCallback, useEffect } from 'react';
+import { StyleSheet, View, Text, Switch, Platform, Animated } from "react-native";
 import Colors from '../constants/Colors';
 
-const FilterScreen = () => {
+
+const FilterSwitch = (props) => {
+
+
+    return (
+        <View style={styles.row}>
+            <Text>{props.label}</Text>
+            <Switch
+                value={props.state}
+                thumbColor={Platform.OS === 'ios' ? '#fff' : Colors.primaryColor}
+                trackColor={{ true: Platform.OS === 'ios' ? Colors.primaryColor : "" }}
+                onValueChange={props.onChange} />
+        </View>
+    )
+}
+
+const FilterScreen = (props) => {
+    const { navigation } = props
 
     const [isGlutenFree, setIsGlutenFree] = useState(false)
-    const [isVegan, setIsVegan] = useState(true)
+    const [isVegan, setIsVegan] = useState(false)
     const [isVegetarian, setIsVegetarian] = useState(false)
-    const [isLactoseFree, setIsLactoseFree] = useState(true)
+    const [isLactoseFree, setIsLactoseFree] = useState(false)
+
+    const onSaveFilters = useCallback(() => {
+        const appliedFilters = {
+            glutenFree: isGlutenFree,
+            vegan: isVegan,
+            vegetarian: isVegetarian,
+            LactoseFree: isLactoseFree
+        }
+        console.log(appliedFilters)
+    },
+        [isGlutenFree, isVegan, isVegetarian, isLactoseFree])
+
+    useEffect(() => {
+        navigation.setParams({ save: onSaveFilters })
+    }, [onSaveFilters])
+
 
     return (
         <View style={styles.screen}>
             <Text style={styles.header}>Filters</Text>
             <View styles={styles.restrictionList}>
-                <View style={styles.row}>
-                    <Text>Gluten Free</Text>
-                    <Switch
-                        value={isGlutenFree}
-                        thumbColor={Platform.OS === 'ios' ? '#fff' : Colors.primaryColor}
-                        trackColor={{ true: Platform.OS === 'ios' ? Colors.primaryColor : "" }}
-                        onValueChange={newValue => setIsGlutenFree(newValue)} />
-                </View>
-                <View style={styles.row}>
-                    <Text>Vegetarian</Text>
-                    <Switch
-                        value={isVegetarian}
-                        thumbColor={Platform.OS === 'ios' ? '#fff' : Colors.primaryColor}
-                        trackColor={{ true: Platform.OS === 'ios' ? Colors.primaryColor : "" }}
-                        onValueChange={newValue => setIsVegetarian(newValue)} />
-                </View>
-                <View style={styles.row}>
-                    <Text>Lactose Free</Text>
-                    <Switch
-                        value={isLactoseFree}
-                        thumbColor={Platform.OS === 'ios' ? '#fff' : Colors.primaryColor}
-                        trackColor={{ true: Platform.OS === 'ios' ? Colors.primaryColor : "" }}
-                        onValueChange={newValue => setIsLactoseFree(newValue)} />
-                </View>
-                <View style={styles.row}>
-                    <Text>Vegan</Text>
-                    <Switch
-                        value={isVegan}
-                        thumbColor={Platform.OS === 'ios' ? '#fff' : Colors.primaryColor}
-                        trackColor={{ true: Platform.OS === 'ios' ? Colors.primaryColor : "" }}
-                        onValueChange={newValue => setIsVegan(newValue)} />
-                </View>
+                <FilterSwitch
+                    label='Gluten Free'
+                    state={isGlutenFree}
+                    onChange={newValue => setIsGlutenFree(newValue)} />
+                <FilterSwitch
+                    label='Vegan'
+                    state={isVegan}
+                    onChange={newValue => setIsVegan(newValue)} />
+                <FilterSwitch
+                    label='Vegetarian'
+                    state={isVegetarian}
+                    onChange={newValue => setIsVegetarian(newValue)} />
+                <FilterSwitch
+                    label='Lactose Free'
+                    state={isLactoseFree}
+                    onChange={newValue => setIsLactoseFree(newValue)} />
             </View>
+            
         </View>);
 };
 
@@ -60,9 +78,18 @@ FilterScreen.navigationOptions = (navData) => {
                 <Item
                     iconName="ios-menu"
                     title='Menu'
-                    onPress={() => {
+                    onPress={() =>
                         navData.navigation.toggleDrawer()
-                    }} />
+                    } />
+            </HeaderButtons>
+        ),
+        headerRight: () => (
+            <HeaderButtons
+                HeaderButtonComponent={HeaderButton}>
+                <Item
+                    iconName="ios-save"
+                    title='save'
+                    onPress={navData.navigation.getParam('save')} />
             </HeaderButtons>
         )
     }
