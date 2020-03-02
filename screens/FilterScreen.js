@@ -2,13 +2,11 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, View, Text, Switch, Platform, Animated } from "react-native";
+import { StyleSheet, View, Text, Switch, Platform} from "react-native";
 import Colors from '../constants/Colors';
 
 
 const FilterSwitch = (props) => {
-
-
     return (
         <View style={styles.row}>
             <Text>{props.label}</Text>
@@ -66,7 +64,7 @@ const FilterScreen = (props) => {
                     state={isLactoseFree}
                     onChange={newValue => setIsLactoseFree(newValue)} />
             </View>
-            
+
         </View>);
 };
 

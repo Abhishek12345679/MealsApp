@@ -1,23 +1,21 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, ScrollView } from "react-native";
 import { Icon } from 'react-native-elements'
-
-import { MEALS } from "../data/dummy-data";
-import { ScrollView } from "react-native-gesture-handler";
-import Colors from "../constants/Colors";
 
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 import { Dimensions } from "react-native";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const MealDetailsScreen = props => {
     const mealId = props.navigation.getParam("mealId");
-    const selectedMeal = MEALS.find(meal => mealId === meal.id);
+    const availableMeals = useSelector(state => state.meals.meals)
+    const selectedMeal = availableMeals.find(meal => mealId === meal.id);
 
-    const isVegan = selectedMeal.isVegan;
-    const isVeg = selectedMeal.isVegetarian;
-    const isLacFree = selectedMeal.isLactoseFree;
-    const isGlutenFree = selectedMeal.isGlutenFree;
+    useEffect(() => {
+        props.navigation.setParams({ mealTitle: selectedMeal.title })
+    }, [selectedMeal])
 
     return (
         <ScrollView>
@@ -99,11 +97,10 @@ const MealDetailsScreen = props => {
 };
 
 MealDetailsScreen.navigationOptions = navigationData => {
-    const mealId = navigationData.navigation.getParam("mealId");
-    const selectedMeal = MEALS.find(meal => mealId === meal.id);
+    const mealTitle = navigationData.navigation.getParam('mealTitle')
 
     return {
-        headerTitle: selectedMeal.title,
+        headerTitle: mealTitle,
         headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item iconName="ios-star" title="fav" onPress={() => { }} />
