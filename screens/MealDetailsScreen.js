@@ -58,15 +58,14 @@ const MealDetailsScreen = props => {
                         <View>
                             <Icon
                                 raised
-                                name='heartbeat'
+                                name='leaf'
                                 type='font-awesome'
                                 color='#f50'
                                 onPress={() => console.log('hello')} />
                         </View>
                         <View>
                             <Icon
-                                reverse
-                                name='heartbeat'
+                                name='leaf'
                                 type='font-awesome'
                                 color='#f50'
                                 onPress={() => console.log('hello')} />
@@ -76,7 +75,7 @@ const MealDetailsScreen = props => {
                         <View>
                             <Icon
                                 raised
-                                name='heartbeat'
+                                name='leaf'
                                 type='font-awesome'
                                 color='#f50'
                                 onPress={() => console.log('hello')} />
@@ -84,7 +83,7 @@ const MealDetailsScreen = props => {
                         <View>
                             <Icon
                                 raised
-                                name='heartbeat'
+                                name='leaf'
                                 type='font-awesome'
                                 color='#f50'
                                 onPress={() => console.log('hello')} />
@@ -105,7 +104,8 @@ MealDetailsScreen.navigationOptions = navigationData => {
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item iconName="ios-star" title="fav" onPress={() => { }} />
             </HeaderButtons>
-        )
+        ),
+        headerBackTitle:'Back'
     };
 };
 

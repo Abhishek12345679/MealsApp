@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const MealScreen = props => {
     const catId = props.navigation.getParam("categoryId");
     const availableMeals = useSelector(state => state.meals.filteredMeals)
-    const displayedMeals = MEALS.filter(
+    const displayedMeals = availableMeals.filter(
         meal => meal.categoryIds.indexOf(catId) >= 0
     );
 

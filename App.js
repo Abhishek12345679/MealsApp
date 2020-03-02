@@ -16,7 +16,7 @@ enableScreens();
 const rootReducer = combineReducers({
   meals: mealsReducer
 })
-const store = createStore(combineReducers(rootReducer))
+const store = createStore(rootReducer)
 
 const fetchFonts = () => {
   return Font.loadAsync({
