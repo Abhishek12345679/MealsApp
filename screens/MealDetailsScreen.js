@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, ImageBackground, ScrollView, Dimensions } from 
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleFavourites } from '../store/actions/meals'
+import { toggleFavourites } from '../store/actions/meals';
 
 const MealDetailsScreen = props => {
     const mealId = props.navigation.getParam("mealId");

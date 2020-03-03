@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, ImageBackground } from "react-native";
+import Colors from "../constants/Colors";
 
 const MealItem = (props) => {
 
@@ -37,11 +38,13 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         overflow: 'hidden',
         justifyContent: 'flex-end',
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0
     },
     mealItem: {
         width: '100%',
         height: 200,
-        backgroundColor: "#000",
+        backgroundColor: Colors.accentColor,
         borderRadius: 15,
         marginVertical: 10
     },
