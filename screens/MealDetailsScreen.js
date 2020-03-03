@@ -5,17 +5,26 @@ import { Icon } from 'react-native-elements'
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
 import { Dimensions } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { toggleFavourites } from '../store/actions/meals'
+import { useCallback } from "react";
 
 const MealDetailsScreen = props => {
     const mealId = props.navigation.getParam("mealId");
     const availableMeals = useSelector(state => state.meals.meals)
     const selectedMeal = availableMeals.find(meal => mealId === meal.id);
 
+    const dispatch = useDispatch()
+
+    const toggleFavHandler = useCallback(() => {
+        dispatch(toggleFavourites(mealId))
+    }, [mealId, dispatch])
+
     useEffect(() => {
         props.navigation.setParams({ mealTitle: selectedMeal.title })
-    }, [selectedMeal])
+        props.navigation.setParams({ toggleFav: toggleFavHandler })
+    }, [selectedMeal, toggleFavHandler])
 
     return (
         <ScrollView>
@@ -97,15 +106,15 @@ const MealDetailsScreen = props => {
 
 MealDetailsScreen.navigationOptions = navigationData => {
     const mealTitle = navigationData.navigation.getParam('mealTitle')
-
+    const toggleFav = navigationData.navigation.getParam('toggleFav')
     return {
         headerTitle: mealTitle,
         headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item iconName="ios-star-outline" title="fav" onPress={() => { }} />
+                <Item iconName="ios-star-outline" title="fav" onPress={toggleFav} />
             </HeaderButtons>
         ),
-        headerBackTitle:'Back'
+        headerBackTitle: 'Back'
     };
 };
 

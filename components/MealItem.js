@@ -1,7 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TouchableNativeFeedback, Platform, ImageBackground } from "react-native";
-
-
+import { StyleSheet, View, Text, TouchableOpacity, ImageBackground } from "react-native";
 
 const MealItem = (props) => {
 
@@ -66,7 +64,7 @@ const styles = StyleSheet.create({
         color: "#fff",
         shadowOpacity: 0.8,
         marginEnd: 10,
-        marginBottom:8
+        marginBottom: 8
     },
     titleContainer: {
         justifyContent: 'space-between',

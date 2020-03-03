@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const FavouritesScreen = props => {
 
-    const availableMeals = useSelector(state => state.meals.meals)
+    const availableMeals = useSelector(state => state.meals.favouriteMeals)
 
     return (
         <MealList
