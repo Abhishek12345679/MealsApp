@@ -1,11 +1,18 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { useSelector } from 'react-redux'
 
 import MealItem from './MealItem'
 
 const MealList = (props) => {
 
+    const favMeals = useSelector(state => state.meals.favouriteMeals)
+
     const renderMealItem = (itemData) => {
+
+        const isFav = favMeals.some(meal => meal.id === itemData.item.id) 
+        // some( ) is the alternative for find( )
+
         return (
             <MealItem
                 image={itemData.item.imageUrl}
@@ -14,7 +21,8 @@ const MealList = (props) => {
                         routeName: 'MealDetail',
                         params: {
                             mealId: itemData.item.id,
-                            mealTitle: itemData.item.title
+                            mealTitle: itemData.item.title,
+                            isFav: isFav
                         }
                     })
                 }

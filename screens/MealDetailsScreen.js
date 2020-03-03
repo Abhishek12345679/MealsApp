@@ -118,28 +118,18 @@ MealDetailsScreen.navigationOptions = navigationData => {
     const toggleFav = navigationData.navigation.getParam('toggleFav')
     const isFavourite = navigationData.navigation.getParam('isFav')
 
-    if (!isFavourite) {
-        return {
-            headerTitle: mealTitle,
-            headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item iconName="ios-star-outline" title="fav" onPress={toggleFav} />
-                </HeaderButtons>
-            ),
-            headerBackTitle: 'Back'
-        };
-    }
-    else {
-        return {
-            headerTitle: mealTitle,
-            headerRight: () => (
-                <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                    <Item iconName="ios-star" title="fav" onPress={toggleFav} />
-                </HeaderButtons>
-            ),
-            headerBackTitle: 'Back'
-        };
-    }
+    return {
+        headerTitle: mealTitle,
+        headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    iconName={isFavourite ? "ios-star" : "ios-star-outline"}
+                    title="fav"
+                    onPress={toggleFav} />
+            </HeaderButtons>
+        ),
+        headerBackTitle: 'Back'
+    };
 };
 
 const styles = StyleSheet.create({
