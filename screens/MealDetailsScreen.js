@@ -102,7 +102,7 @@ MealDetailsScreen.navigationOptions = navigationData => {
         headerTitle: mealTitle,
         headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item iconName="ios-star" title="fav" onPress={() => { }} />
+                <Item iconName="ios-star-outline" title="fav" onPress={() => { }} />
             </HeaderButtons>
         ),
         headerBackTitle:'Back'

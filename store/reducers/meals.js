@@ -1,4 +1,5 @@
 import { MEALS } from "../../data/dummy-data";
+import { TOGGLE_FAVOURITES } from '../actions/meals'
 
 const initialState = {
     meals: MEALS,
@@ -7,7 +8,12 @@ const initialState = {
 };
 
 const mealsReducer = (state = initialState, action) => {
-    return state;
+
+    switch (action.type) {
+        TOGGLE_FAVOURITES:
+}
+
+return state;
 };
 
 export default mealsReducer;
