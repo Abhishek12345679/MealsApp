@@ -1,19 +1,21 @@
-import React from "react";
-import { StyleSheet, View, Text, ImageBackground, ScrollView } from "react-native";
-import { Icon } from 'react-native-elements'
+import React, { useEffect, useCallback } from "react";
+import { StyleSheet, View, Text, ImageBackground, ScrollView, Dimensions } from "react-native";
+// import { Icon } from 'react-native-elements'
 
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
-import { Dimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { toggleFavourites } from '../store/actions/meals'
-import { useCallback } from "react";
 
 const MealDetailsScreen = props => {
     const mealId = props.navigation.getParam("mealId");
+
     const availableMeals = useSelector(state => state.meals.meals)
+    const favouriteMeals = useSelector(state => state.meals.favouriteMeals)
+
     const selectedMeal = availableMeals.find(meal => mealId === meal.id);
+
+    const isFavourite = favouriteMeals.find(meal => meal.id === selectedMeal.id)
 
     const dispatch = useDispatch()
 
@@ -23,8 +25,15 @@ const MealDetailsScreen = props => {
 
     useEffect(() => {
         props.navigation.setParams({ mealTitle: selectedMeal.title })
+    }, [selectedMeal])
+
+    useEffect(() => {
         props.navigation.setParams({ toggleFav: toggleFavHandler })
-    }, [selectedMeal, toggleFavHandler])
+    }, [toggleFavHandler])
+
+    useEffect(() => {
+        props.navigation.setParams({ isFav: isFavourite })
+    }, [isFavourite])
 
     return (
         <ScrollView>
@@ -64,7 +73,7 @@ const MealDetailsScreen = props => {
                 <View styles={styles.foodOrientation}>
                     <Text style={styles.sectionHeader}>Food Habits</Text>
                     <View style={styles.rowOne}>
-                        <View>
+                        {/* <View>
                             <Icon
                                 raised
                                 name='leaf'
@@ -96,7 +105,7 @@ const MealDetailsScreen = props => {
                                 type='font-awesome'
                                 color='#f50'
                                 onPress={() => console.log('hello')} />
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </View>
@@ -107,15 +116,30 @@ const MealDetailsScreen = props => {
 MealDetailsScreen.navigationOptions = navigationData => {
     const mealTitle = navigationData.navigation.getParam('mealTitle')
     const toggleFav = navigationData.navigation.getParam('toggleFav')
-    return {
-        headerTitle: mealTitle,
-        headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item iconName="ios-star-outline" title="fav" onPress={toggleFav} />
-            </HeaderButtons>
-        ),
-        headerBackTitle: 'Back'
-    };
+    const isFavourite = navigationData.navigation.getParam('isFav')
+
+    if (!isFavourite) {
+        return {
+            headerTitle: mealTitle,
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item iconName="ios-star-outline" title="fav" onPress={toggleFav} />
+                </HeaderButtons>
+            ),
+            headerBackTitle: 'Back'
+        };
+    }
+    else {
+        return {
+            headerTitle: mealTitle,
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item iconName="ios-star" title="fav" onPress={toggleFav} />
+                </HeaderButtons>
+            ),
+            headerBackTitle: 'Back'
+        };
+    }
 };
 
 const styles = StyleSheet.create({
